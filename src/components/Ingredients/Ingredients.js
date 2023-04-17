@@ -21,9 +21,17 @@ const Ingredients = () => {
             amount: responseData[key].amount,
           });
         }
-        setUserIngredients(loadedIngredients)
+        setUserIngredients(loadedIngredients);
       });
   }, []);
+
+  useEffect(() => {
+    console.log("RENDERING INGREDIENTS");
+  });
+
+  const filteredIngredientsHandler = (filteredIngredients) => {
+    setUserIngredients(filteredIngredients);
+  };
 
   const addIngredientHandler = (ingredient) => {
     fetch(
@@ -56,7 +64,7 @@ const Ingredients = () => {
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search  onLoadIngredients={filteredIngredientsHandler}/>
         <IngredientList
           ingredients={userIngredients}
           onRemoveItem={removeIngredientHandler}
